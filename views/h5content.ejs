@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+	<link href="/stylesheets/style.css" rel="stylesheet" media="screen">
+	<script src="/javascripts/jquery-2.2.0.min.js"></script>
+	<script src="/bootstrap/js/bootstrap.min.js"></script>
+<!-- 	<script src="javascripts/react/react.js"></script>
+	<script src="javascripts/react/react-dom.js"></script> -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.24/browser.min.js"></script>
+</head>
+<body>
+<div>
+	<form method="post" class="poetry-form">
+		<div class="form-group">
+		<label for="img">图片</label>
+			<input type="file" class="form-control" id="img" name="img" accept="image/*">
+		</div>
+		<div class="form-group">
+			<label for="poetry">诗文</label>
+			<input type="text" class="form-control" id="poetry" name="poetry">
+		</div>
+		<div class="form-group">
+			<label for="fontcolor">字体颜色</label>
+			<input type="text" class="form-control" id="fontcolor" name="fontcolor">
+		</div>
+		<div class="form-group">
+			<label for="x">x轴位置</label>
+			<input type="number" class="form-control" id="x" name="x">
+		</div>
+		<div class="form-group">
+			<label for="y">y轴位置</label>
+			<input type="number" class="form-control" id="y" name="y">
+		</div>
+		<div class="form-group">
+			<label for="font_family">字体样式</label>
+			<select class="form-control" id="font_family" name="font_family">
+				<option value="">默认</option>
+				<option value="STXingkai">华文行楷</option>
+				<option value="CJSXingkai">陈继世行楷</option>
+				<option value="XJRXingkai">徐金如硬笔行楷</option>
+			</select>
+		</div>
+		<input type="hidden" name="imagesrc" id="imagesrc"/>
+		<input type="hidden" name="fontFamily" id="fontFamily"/>
+		<!-- <img id="img_draw" style="display:hidden;"/> -->
+		<button type="submit" id='sub' class="btn btn-primary" style="width:100%;margin:0 0 10px 0">提交</button>
+	</form>
+	<div class="canvas-show" style="margin-top:5px">
+		<canvas id='canvas' width="360" height="640"></canvas>
+	</div>
+	</div>
+	<!-- <script type="text/babel">
+		var HelloMessage = React.createClass({
+		render : function(){
+			return <div>Hello {this.props.name}</div>;
+		}
+})
+ReactDOM.render(
+<HelloMessage name="Shing"/>,
+document.getElementById("t1")
+) -->
+<!-- </script> -->
+<script src="/javascripts/ImageCompress.js"></script>
+<script src="/javascripts/h5content.js"></script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<% include header.ejs %>
+<% if (success) { %>
+  <div class="sucess"><%= success %></div>
+<% } %>
+<% if (error) { %>
+  <div class="error"><%= error %> </div>
+<% } %>
+<div>
+  <table class="table table-striped">
+  <!--<caption>活动统计</caption>-->
+  <thead>
+    <tr>
+      <th>活动名称</th>
+      <th>参赛与否</th>
+      <th>人员名称</th>
+      <th>备注</th>
+      <th>报名时间</th>
+    </tr>
+  </thead>
+  <tbody>
+  <%if(personnels && typeof(personnels)!= "undefined"){%>
+    <%for(var i=0;i<personnels.length;i++){%>
+      <tr>
+        <td><%=(personnels[i].competitionName?personnels[i].competitionName:'')%></td>
+        <td><%=(personnels[i].isJoin == '1'?'是':'否')%></td>
+        <td><%=(personnels[i].userName?personnels[i].userName:'')%></td>
+        <td><%=(personnels[i].remark?personnels[i].remark:'')%></td>
+        <td><%=personnels[i].date.getFullYear()%>/<%=personnels[i].date.getMonth()%>/<%=personnels[i].date.getDate()%>&nbsp<%=(personnels[i].date.getHours()>9?personnels[i].date.getHours():("0"+personnels[i].date.getHours()))%>:<%=(personnels[i].date.getMinutes()>9?personnels[i].date.getMinutes():("0"+personnels[i].date.getMinutes()))%></td>
+      </tr>
+    <%}%>
+  <%}%>
+  </tbody>
+  </table>
+</div>
+<% include footer.ejs %>

@@ -1,0 +1,159 @@
+<% include header.ejs %>
+<nav class="navbar navbar-fixed-top headNav">
+<div class="navbar-header nav-headFoot">
+<a><span class="glyphicon glyphicon-user" aria-hidden="true"></span></a>
+<div class="nav-user">
+<span><%=user.name%></span>
+<span id="logout" class="logout">注销</span>
+</div>
+</div>
+</div>
+<div class="nav navbar-nav navbar-right nav-headFoot">
+   <a href="/index">点滴</a>
+    <span>/</span>
+    <a href="/articleList">菏泽</a>
+</div>
+</nav>
+<header class="header-latest jumbotron">
+   <div class="header-user">
+      <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+      <div class="nav-user">
+<span><%=user.name%></span>
+<span id="logout" class="logout">注销</span>
+</div>
+   </div>
+  <div class="navigation">
+    <a href="/index">点滴</a>
+    <span>/</span>
+    <a href="/articleList">菏泽</a>
+  </div>
+  <div class="container">
+    <h2>雁过留痕</h2>
+    <h3>天空没留下我的足迹，但你确已飞过</h3>
+  </div>
+</header>
+<canvas id="loading" width=500 height=500 style="margin:auto;display: block;"></canvas>
+<form method="post" action="/index" enctype='multipart/form-data' onkeydown="if(event.keyCode==13){return false;}">
+<div class="content-all">
+	<div class="content-header">
+      <div class="description">
+         <h2 class="mingju">您忠贞的警言</h2>
+         <p class="desc-content">菩提本无树，<br>明镜亦非台。<br>本来无一物，<br>何处惹尘埃。<br></p>
+         <% if (!allOpenned) {%>
+         <a id='allOpenned' class="all-openned" href='/allOpened'>看尽人间冷暖</a>
+         <% }%>
+      </div>
+
+      <div class="friend-chat">
+         <div class="friend-chat-content">
+         </div>
+         <input class="chat-message" placeholder="按回车发送"></input>
+      </div>
+	</div>
+	<div class="content-main">
+		<div class="every-content">
+			<% if(emotions && typeof(emotions)!= "undefined"){ %>
+      <%  String.prototype.replaceAll = function(str1,str2){
+          return this.replace(new RegExp(str1,"gm"),str2);
+      }%>
+				<% for(var i=0;i<emotions.length;i++){%>
+				<div id="piece" class="piece">
+					<label class="pieceContent"><%-emotions[i].content.replaceAll("\n","<br/>")%></label>
+              <% if (!allOpenned) {%>
+               <label class="btn-del"><span class="glyphicon glyphicon-remove-circle"></span></label>
+              <% }%>
+               <div class="content-image">
+               <%if(emotions[i].images){%>
+                  <%for(var j = 0;j<emotions[i].images.split(",").length;j++){%>
+                  <img src=<%="files/"+emotions[i].images.split(",")[j]%> style="width:256px;height:180px;"></img>
+                  <%}%>
+               <%}%>
+               </div>
+               <a href="javascript:void(0)" class='open' style=<%=allOpenned?"visibility:hidden;": "visibility:visible;" %>><%=emotions[i].openness == 1 ? "不开放" : "开放"%></a>
+               <input value=<%=emotions[i]._id%> type="hidden"></input>
+               <p class="openness" style=<%=allOpenned?"visibility:hidden;": "visibility:visible;" %>>目前开放性：<span><%=emotions[i].openness == 1 ? "是" : "否"%></span></p>
+               <p class="publish-time"><%=emotions[i].date.getFullYear()%>/<%=parseInt(emotions[i].date.getMonth())+1%>/<%=emotions[i].date.getDate()%>&nbsp<%=(emotions[i].date.getHours()>9?emotions[i].date.getHours():("0"+emotions[i].date.getHours()))%>:<%=(emotions[i].date.getMinutes()>9?emotions[i].date.getMinutes():("0"+emotions[i].date.getMinutes()))%></p>
+				</div>
+				<%}%>
+			<%}%>
+         <div id="getmore" class="piece get-more">
+            <a href="javascript:;">加载更多内容&darr;</a>
+         </div>
+		</div>
+	</div>
+	<div class="content-footer">
+	</div>
+   <input type="hidden" id="user" value=<%=user.name%> />
+   <input type="hidden" id="pages" value=<%=pages%> />
+   <input type="hidden" id="page" value="2" />
+</div>
+<div class="publish">
++
+</div>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" 
+   aria-labelledby="myModalLabel" aria-hidden="true">
+   <div class="modal-dialog">
+      <div class="modal-content">
+         <div class="modal-header">
+            <button type="button" class="close modal-close" 
+               data-dismiss="modal" aria-hidden="true">
+                  &times;
+            </button>
+            <h4 class="modal-title" id="myModalLabel">
+               心路写照
+            </h4>
+            <a href="/articlePublish" class="richArt">只言片语道不尽，长篇大论点这里</a>
+         </div>
+         <div class="modal-body">
+            <textarea name="emotion" id="emotion" rows="5" cols="68" style='overflow:scroll;overflow-y:hidden;;overflow-x:hidden'></textarea>
+            <input class="btn btn-default" type="button" id="tab" value="换行" style="background-color: greenyellow;"></input>
+            <div class="image-show">
+            </div>
+         </div>
+         <div class="modal-footer">
+            <a href="javascript:;" class="a-upload"><input type="file" id="pics" name="pics" multiple="multiple">上传</input></a>
+            <button type="button" class="btn btn-default modal-close" 
+               data-dismiss="modal">关闭
+            </button>
+            <button class="btn btn-primary modal-close" type="submit" id="publish">
+               烧入记忆
+            </button>
+         </div>
+      </div><!-- /.modal-content -->
+   </div>
+</div><!-- /.modal -->
+<div class="modal fade" id="delModal" tabindex="-1" role="dialog" 
+   aria-labelledby="myModalLabel" aria-hidden="true">
+   <div class="modal-dialog">
+      <div class="modal-content">
+         <div class="modal-header">
+            <button type="button" class="close" 
+               data-dismiss="modal" aria-hidden="true">
+                  &times;
+            </button>
+         </div>
+         <div class="modal-body">
+            <h4>您确认要删除这段历程吗？</h4>
+         </div>
+         <div class="modal-footer">
+            <button type="button" class="btn btn-default" 
+               data-dismiss="modal" >关闭
+            </button>
+            <button type="button" class="btn btn-primary" id="emotion-del">
+               确认
+            </button>
+         </div>
+      </div><!-- /.modal-content -->
+   </div>   
+</div><!-- /.modal -->
+<input type="hidden" id="del-content"></input>
+</form>
+<script src="/javascripts/jquery.messager.js"></script>
+<script src="/javascripts/jquery-ui-1.10.4.min.js"></script>
+<script src="/javascripts/jquery.mousewheel.js"></script>
+<script src="/javascripts/jquery.mCustomScrollbar.min.js"></script>
+<script src="/javascripts/jquery.infinitescroll.js"></script>
+<script src="/javascripts/index.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script src="/javascripts/chat.js"></script>
+<% include footer.ejs %>

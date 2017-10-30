@@ -1,0 +1,23 @@
+<% include header.ejs %>
+<% if (success) { %>
+  <div class="sucess"><%= success %></div>
+<% } %>
+<% if (error) { %>
+  <div class="error"><%= error %> </div>
+<% } %>
+<div style="width: 40px;height: 40px;border:1px solid black;border-radius: 20px;">
+</div>
+<p style="text-align: center;background: #333;color: white;font-size: 24px;">系统logs</p>
+<ul class="nav nav-tabs" style="width: 90%;margin: auto;">
+  <li class="active"><a href="#access" data-toggle="tab">运行Logs</a></li>
+  <li><a href="#error" data-toggle="tab">error Logs</a></li>
+</ul>
+<div class="tab-content" style="margin-bottom: 10px;">
+  <div class="tab-pane active" id="access" style="width: 90%;margin: auto;border: 1px solid #ccc;border-top: 0px;word-wrap: break-word;word-break: normal;background: #333;color: white;">
+    <%=accessLog%>
+  </div>
+  <div id="error" class="tab-pane" style="width: 90%;margin: auto;border: 1px solid #ccc;border-top: 0px;word-wrap: break-word;word-break: normal;background: #333;color: white;"> 
+    <%=errorLog%>
+  </div> 
+</div>
+<% include footer.ejs %>

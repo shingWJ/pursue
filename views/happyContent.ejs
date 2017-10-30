@@ -1,0 +1,51 @@
+<% include header.ejs %>
+<header class="header-latest jumbotron fixedHeader">
+  <div class="container">
+    <label>你的笑在眼角里</label>
+    <label>仿佛一条鱼的尾巴游动</label>
+    <label>在平湖里泛起一抹微波</label>
+  </div>
+</header>
+<div>
+<% if (success) { %>
+  <div class="sucess"><%= success %></div>
+<% } %>
+<% if (error) { %>
+  <div class="error"><%= error %> </div>
+<% } %>
+
+<div style="margin-top: 9em;">
+  <%if(happyContents && typeof(happyContents) != 'undefined') {%>
+  <%for(var i=0;i<happyContents.length;i++){%>
+  <div class="card">
+  <div class="card-block">
+    <h4 class="card-title"></h4>
+    <p class="card-text"><%-happyContents[i].content%></p>
+    <div style="color: #757575;">
+    <span class="glyphicon glyphicon-heart <%=(happyContents[i].isLike == 0 ? '' : 'heart-like')%>" id='likeNor' onClick="isLikeClick(this);"></span>
+    <span class="glyphicon glyphicon-comment happy-comment" id='comment' onclick="commentClick(this);"></span>
+    <input type="hidden" name="commentId" id="commentId" value=<%=happyContents[i].commentID%>>
+    </div>
+  </div>
+  </div>
+  <div class="comment-list" id="commentList">
+    <%if(happyContents[i].comments && happyContents[i].comments.length > 0) {%>
+    <%for(var j=0;j<happyContents[i].comments.length;j++){%>
+    <p class='comment-p'><%=happyContents[i].comments[j].user%>&nbsp:&nbsp<%=happyContents[i].comments[j].content%></p>
+    <%}%>
+    <%}%>
+  </div>
+  <%}%>
+  <%}%>
+</div>
+</div>
+<input type="hidden" name="currentID" id="currentID">
+<input type="hidden" name="userName" id="userName" value="<%=user.name%>" >
+<div class="comment-div" id="commentDiv" style="display: none;">
+  <div style="position: relative;overflow: hidden;">
+  <input type="text" name="comment" id="commentInput" class="form-control" placeholder="说说感受..." style="width: 85%;float: left;">
+  <button class="btn btn-primary" style="float: right;width: 13%;font-size: 0.8em;padding: 6px 0.7em;" id="commntBtn">评论</button>
+  </div>
+</div>
+<script src="/javascripts/happyHandle.js"></script>
+<% include footer.ejs %>

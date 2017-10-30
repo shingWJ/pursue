@@ -1,0 +1,21 @@
+<% include header.ejs %>
+<header class="header-latest jumbotron">
+  <div class="navigation">
+    <a href="/index">点滴</a>
+    <span>/</span>
+    <a href="/articleList">菏泽</a>
+  </div>
+  <div class="container">
+    <h2>雁过留痕</h2>
+    <h3>天空没留下我的足迹，但你确已飞过</h3>
+  </div>
+</header>
+<%if(article && typeof(article) != "undefined"){%>   
+    <article class="article-one">
+        <h3 style="text-align: center;"><%-article.title%></h3>
+        <label class="article-author"><%=article.author%></label>
+        <div class="one-content"><%-article.content%></div>
+        <label class="article-time article-author"><%=article.date.getFullYear()%>/<%=parseInt(article.date.getMonth())+1%>/<%=article.date.getDate()%>&nbsp<%=(article.date.getHours()>9?article.date.getHours():("0"+article.date.getHours()))%>:<%=(article.date.getMinutes()>9?article.date.getMinutes():("0"+article.date.getMinutes()))%></label>
+    </article>
+<%}%>
+<% include footer.ejs %>

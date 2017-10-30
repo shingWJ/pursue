@@ -1,0 +1,35 @@
+<% include header.ejs %>
+<header class="header-latest jumbotron">
+  <div class="navigation">
+    <a href="/index">点滴</a>
+    <span>/</span>
+    <a href="/articleList">菏泽</a>
+  </div>
+  <div class="container">
+    <h2>雁过留痕</h2>
+    <h3>天空没留下我的足迹，但你确已飞过</h3>
+  </div>
+</header>
+<div class="articles-all">
+<div class="row">
+    <% if(articles && typeof(articles) != 'undefined') {%>
+        <% for(var i=0;i<articles.length;i++) {%>
+        <div class="col-sm-12 col-md-6 article-cont">
+            <div class="thumbnail article-piece">
+                <div class="panel-heading">
+                    <h3 class="panel-title article-title"><%=articles[i].title%></h3>
+                </div>
+                <label class="article-sub"><%=articles[i].author%></label>
+                <div class="article-content panel-body"><%-articles[i].content%></div>
+                <a href="/article/<%=articles[i]._id%>" class="article-whole">查看全文</a>
+                <label class="article-sub article-date"><%=articles[i].date.getFullYear()%>/<%=parseInt(articles[i].date.getMonth())+1%>/<%=articles[i].date.getDate()%>&nbsp<%=(articles[i].date.getHours()>9?articles[i].date.getHours():("0"+articles[i].date.getHours()))%>:<%=(articles[i].date.getMinutes()>9?articles[i].date.getMinutes():("0"+articles[i].date.getMinutes()))%></label>
+            </div>
+        </div>
+        <%}%>
+    <%}%>
+</div>
+</div>
+<div class="do-art">
+    <span class="glyphicon glyphicon-pencil" onclick="window.location = '/articlePublish'"></span>
+</div>
+<% include footer.ejs %>

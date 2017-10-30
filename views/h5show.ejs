@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+	<script type="text/javascript" src="/javascripts/zepto.min.js"></script>
+	<script type="text/javascript" src="/javascripts/touch-0.2.14.min.js"></script>
+	<script src="/javascripts/jquery-2.2.0.min.js"></script>
+	<script src="/bootstrap/js/bootstrap.min.js"></script>
+	<link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+	<style>
+		@font-face {
+			font-family: 'STXingkai';
+			src: url('/font/STXingkai.ttf')  format('truetype'); /* Safari, Android, iOS */
+		}
+		@font-face {
+			font-family: 'CJSXingkai';
+			src: url('/font/CJSXingkai.ttf')  format('truetype'); /* Safari, Android, iOS */
+		}
+		@font-face {
+			font-family: 'XJRXingkai';
+			src: url('/font/XJRXingkai.ttf')  format('truetype'); /* Safari, Android, iOS */
+		}
+	</style>
+</head>
+<body>
+	<canvas id="canvas"></canvas>
+	<input id="poetry" type="hidden" value=<%=JSON.stringify(poetries)%> >
+	<span id="icon-left" class="glyphicon glyphicon-chevron-left" style="position: fixed;top: 200px;left: 10px;font-size: 40px;color: blue;opacity: 0.5;"></span>
+	<span id="icon-right" class="glyphicon glyphicon-chevron-right" style="position: fixed;top: 200px;right: 10px;font-size: 40px;color: blue;opacity: 0.5;"></span>
+	<script type="text/javascript">
+		var poetryStr = document.getElementById('poetry').value;
+		var poetryObj = JSON.parse(poetryStr);
+		var screenWidth = window.innerWidth;
+		var screenHeight = window.innerHeight;
+		var icon_left = document.getElementById('icon-left');
+		icon_left.style.top = ((screenHeight-40)/2) + 'px';
+		var icon_right = document.getElementById('icon-right');
+		icon_right.style.top = ((screenHeight-40)/2) + 'px';
+		var cvs = document.getElementById('canvas');
+		cvs.width = screenWidth;
+		cvs.height = screenHeight;
+		var ctx = cvs.getContext('2d');
+		ctx.save();
+		var image = new Image();
+		var poe1 = new Array();
+		poe1.push('Day 【001】');
+		poe1.push('因为担心，所以隐瞒');
+		poe1.push('因为害怕，所以欺骗');
+		poe1.push('一开始就已不纯粹');
+		poe1.push('越是隐瞒，越是担心');
+		poe1.push('越是欺骗，越是害怕');
+		poe1.push('到最后还是失去你');
+		poe1.push('始终，还是欠你一句');
+		poe1.push('对不起');
+		poe1.push('人生若只如初见');
+		var showArr = new Array();
+		showArr.push({
+			no: '0',
+			poetry: poe1,
+			img: 'p1.jpg',
+			fontColor: 'white',
+			x: 20,
+			y: 90,
+			font_family: 'STXingkai'
+		})
+		var poetry = new Array();
+		poetry.push('Day 【002】');
+		poetry.push('不曾想过');
+		poetry.push('当初你送的小小仙人球');
+		poetry.push('在经历寒冬后');
+		poetry.push('竟开出了美丽的花朵');
+		poetry.push('可惜');
+		showArr.push({
+			no: '1',
+			poetry: poetry,
+			img: 'p2.jpg',
+			fontColor: '#259b24',
+			x: 20,
+			y: 90,
+			font_family: 'STXingkai'
+		})
+
+		var poe3 = new Array();
+		poe3.push('Day 【003】');
+		poe3.push('曾经一起');
+		poe3.push('走过的路');
+		poe3.push('去过的地方');
+		poe3.push('留下的回忆');
+		poe3.push('如果有一天');
+		poe3.push('在眼前变得模糊');
+		poe3.push('不是因为时间冲淡');
+		poe3.push('而是我又想起你了');
+		showArr.push({
+			no: '2',
+			poetry: poe3,
+			img: 'p3.jpeg',
+			fontColor: '#b0bec5',
+			x: 100,
+			y: 30,
+			font_family: 'STXingkai'
+		})
+
+		var poe4 = new Array();
+		poe4.push('Day 【004】');
+		poe4.push('你的眼里');
+		poe4.push('充满了真诚与信任');
+		poe4.push('我却对着它');
+		poe4.push('说出了无尽的谎言');
+		showArr.push({
+			no: '3',
+			poetry: poe4,
+			img: 'p4.jpg',
+			fontColor: '#3b50ce',
+			x: 20,
+			y: 90,
+			font_family: 'STXingkai'
+		})
+		var poe5 = new Array();
+		poe5.push('Day 【005】');
+		poe5.push('21 Days');
+		poe5.push('Change your World');
+		poe5.push('还是');
+		poe5.push('没能改变我的拖延症');
+		poe5.push('机会');
+		poe5.push('眼睁睁从指间溜走');
+		poe5.push('后悔');
+		poe5.push('已不配拥有');
+		showArr.push({
+			no: '4',
+			poetry: poe5,
+			img: 'p5.jpg',
+			fontColor: 'orange',
+			x: 20,
+			y: 170,
+			font_family: 'STXingkai'
+		})
+
+		var poe6 = new Array();
+		poe6.push('Day 【006】');
+		poe6.push('以为');
+		poe6.push('能给你全世界');
+		poe6.push('岂知');
+		poe6.push('扰乱了你的世界');
+		poe6.push('think of me');
+		poe6.push('think of me fondly');
+		poe6.push("when we've said goodbye");
+		poe6.push('Remenber me');
+		poe6.push('Once in a while ~~~');
+		showArr.push({
+			no: '5',
+			poetry: poe6,
+			img: 'p6.jpg',
+			fontColor: '#eceff1',
+			x: 20,
+			y: 190,
+			font_family: 'STXingkai'
+		})
+
+		var poe7 = new Array();
+		poe7.push('Day 【007】');
+		poe7.push('以为');
+		poe7.push('摩天轮的最高处');
+		poe7.push('是最浪漫的时刻');
+		poe7.push('最终');
+		poe7.push('还是免不了');
+		poe7.push('缓缓落回地面');
+		showArr.push({
+			no: '6',
+			poetry: poe7,
+			img: 'p7.jpg',
+			fontColor: 'white',
+			x: 20,
+			y: 190,
+			font_family: 'STXingkai'
+		})
+		for(var i=0;i<poetryObj.length;i++) {
+			showArr.push({
+				no: poetryObj[i].No,
+				poetry: poetryObj[i].poe.split(";"),
+				img: poetryObj[i].img,
+				fontColor: poetryObj[i].fontcolor,
+				x: parseInt(poetryObj[i].x),
+				y: parseInt(poetryObj[i].y),
+				font_family: poetryObj[i].fontFamily
+			})
+		}
+		var cur_show;
+
+		var ani_show =function(next_show){
+			var second = 0;
+			var interval = setInterval(function(){
+				ctx.scale(0.6,0.6);
+				ctx.rotate(20*Math.PI/180);
+				second += 100;
+				if (second>2100) {
+					clearInterval(interval);
+					ctx.clearRect(0,0,screenWidth,screenHeight);
+					canvasInit(next_show);
+				}
+			},100);
+		}
+
+		touch.on('#canvas',"swipeleft",function(event){
+			if (cur_show.no == (showArr.length -1) ) {
+				return false;
+			}
+			var second = 0;
+			var interval = setInterval(function(){
+				
+				second += 100;
+				if (second>300) {
+					second = 0;
+					clearInterval(interval);
+					ctx.clearRect(0,0,screenWidth,screenHeight);
+					var NO = parseInt(cur_show.no) + 1;
+					var next_show = showArr[NO];
+					ctx.restore(); 
+					canvasInit(next_show);
+					ctx.save();
+				} else {
+					ctx.clearRect(0,0,screenWidth,screenHeight);
+					ctx.scale(0.6,0.6);
+					ctx.rotate(20*Math.PI/180,screenWidth/2,screenHeight/2);
+					canvasInit(cur_show);
+				}
+			},100);
+		})
+
+		touch.on('#canvas',"swiperight",function(event){
+			if (cur_show.no == 0) {
+				return;
+			}
+			var second = 0;
+			var interval = setInterval(function(){
+				
+				second += 100;
+				if (second>300) {
+					second = 0;
+					clearInterval(interval);
+					ctx.clearRect(0,0,screenWidth,screenHeight);
+					var NO = parseInt(cur_show.no) - 1;
+					var next_show = showArr[NO];
+					ctx.restore();
+					canvasInit(next_show);
+					ctx.save();
+				} else {
+					ctx.clearRect(0,0,screenWidth,screenHeight);
+					ctx.scale(0.6,0.6);
+					ctx.rotate(20*Math.PI/180,screenWidth/2,screenHeight/2);
+					canvasInit(cur_show);
+				}
+			},100);
+		})
+
+		var canvasInit = function(obj){
+			cur_show = obj;
+			if (obj && obj.img) {
+				image.src = '/images/' + obj.img;
+				image.onload = function() {
+					ctx.drawImage(image,0,0,screenWidth,screenHeight,0,0,screenWidth,screenHeight);
+					ctx.font="20px " + obj.font_family;
+					ctx.fillStyle=obj.fontColor;
+					if (obj.poetry && obj.poetry.length > 0) {
+						for(var i=0;i<obj.poetry.length;i++) {
+							ctx.fillText(obj.poetry[i],obj.x,obj.y + i*30);
+						}
+					}
+				}
+			}
+
+			if (obj.no && obj.no == '0') {
+				document.getElementById('icon-left').style.display = 'none';
+				document.getElementById('icon-right').style.display = '';
+			} else if (obj.no && obj.no == (showArr.length -1)) {
+				document.getElementById('icon-left').style.display = '';
+				document.getElementById('icon-right').style.display = 'none';
+			} else {
+				document.getElementById('icon-left').style.display = '';
+				document.getElementById('icon-right').style.display = '';
+			}
+		}
+		canvasInit(showArr[0]);
+	</script>
+</body>
+</html>

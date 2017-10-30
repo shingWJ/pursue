@@ -1,0 +1,44 @@
+<% include header.ejs %>
+<header class="header-latest jumbotron">
+  <div class="navigation">
+    <a href="/index">点滴</a>
+    <span>/</span>
+    <a href="/articleList">菏泽</a>
+  </div>
+  <div class="container">
+    <h2>雁过留痕</h2>
+    <h3>天空没留下我的足迹，但你确已飞过</h3>
+  </div>
+</header>
+<div>
+  <table class="table table-striped">
+  <caption style='text-align: center;font-size: 16px;'>此次聚餐统计</caption>
+  <thead>
+    <tr>
+      <th>图片欣赏（仅供参考）</th>
+      <th>价格</th>
+      <th>地点</th>
+      <th>受欢迎度</th>
+      <th>投票</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><img src=<%=imgSrc%>></img></td>
+      <td><%=price%></td>
+      <td><%=address%></td>
+      <td><span id='favorate' class='glyphicon glyphicon-heart' style="color:red"></span><span>0</span></td>
+      <td><span id='vote' class='glyphicon glyphicon-heart-empty' style='cursor:pointer;'></span></td>
+    </tr>
+  </tbody>
+  </table>
+</div>
+<script>
+  var vote = document.getElementById('vote');
+  vote.onclick = function(){
+    var cur_count = document.getElementById('favorate').nextSibling.innerHTML;
+    var voted_count = parseInt(cur_count) + 1;
+    document.getElementById('favorate').nextSibling.innerHTML = voted_count;
+  }
+</script>>
+<% include footer.ejs %>

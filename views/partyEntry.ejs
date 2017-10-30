@@ -1,0 +1,55 @@
+<% include header.ejs %>
+<!-- <header class="header-latest jumbotron">
+  <div class="container">
+    <h2><%=title%></h2>
+    <h3>欢迎前来报名</h3>
+  </div>
+</header> -->
+<div class="party-header">
+	<!-- <img src="/images/2rdParty.jpg" style="position:absolute;left:0;top:0;z-index:-999;width:100%;"> -->
+	<canvas id="headCav" style="position:absolute;left:0;top:0;z-index:-999;width:100%;"></canvas>
+	<div class="party-title">
+		老钱组第二次集体聚会
+	</div>
+</div>
+<div class="party-detail">
+	<p style="font-size: 24px;font-weight: 900;border-bottom: 1px solid #ccc;">活动详情</p>
+	<div class="detail-content">
+		<p>目的：增加大家之间的感情（满足部分吃货胡吃海喝）</p>
+		<p>负责人：钱如中   联系电话：15821889071</p>
+		<p>时间：2016.11.19</p>
+		<p>地点：待定</p>
+	</div>
+</div>
+<p style="font-size: 30px;color: rgb(0,113,188);width: 30%;margin: auto;text-align: center;border-bottom: 1px solid #ccc;">报名表</p>
+<div class="party-entry-form">
+	<form id="entry_form" method="post">
+		<div class="form-group">
+			<label for="name">你的姓名<label class="important">*</label></label>
+			<input type="text" class="form-control" id="name" name="name" placeholder="请输入姓名">
+		</div>
+		<div class="form-group">
+			<label for="phoneNO">你的手机号码</label>
+			<input type="number" class="form-control" id="phoneNO" name="phoneNO" placeholder="请输入手机号码">
+		</div>
+		<div class="form-group">
+			<label for="entryCount">人数（仅数字）</label>
+			<input type="number" class="form-control" id="entryCount" name="entryCount" placeholder="请输入报名人数">
+		</div>
+		<div class="form-group">
+			<label for="placeAdvice">期望聚餐地点（如有）</label>
+			<input type="text" class="form-control" id="placeAdvice" name="placeAdvice" placeholder="请输入期望聚餐地点">
+		</div>
+		<div class="form-group">
+			<label for="tasteFavor">菜系偏好（如有）</label>
+			<input type="text" class="form-control" id="tasteFavor" name="tasteFavor" placeholder="请输入菜系偏好">
+		</div>
+		<div class="form-group">
+			<label for="suitableTime">你合适的时间（如：白天 中午 晚上）</label>
+			<input type="text" class="form-control" id="suitableTime" name="suitableTime" placeholder="请输入你合适的时间">
+		</div>
+		<button id="sub_enrty" type='button' class="btn btn-info entry-btn">报名</button>
+	</form>
+</div>
+<script src="/javascripts/party.js"></script>
+<% include footer.ejs %>

@@ -1,0 +1,30 @@
+<% include header.ejs %>
+<% include header.ejs %>
+<div>
+<ul class='nav nav-pills publish-header'>
+    <li>
+        <a href="/index">点滴</a>
+    </li>
+    <p class="publish-des">随时随地记录属于自己的IDEA</p>
+    <li style="float:right">
+        <a href="/articleList">菏泽</a>
+    </li>
+</ul>
+</div>
+<form method="post" action="/index" enctype='multipart/form-data' style="margin: 0 5px;">
+	<textarea name="emotion" id="emotion" rows="10" style="width:100%;margin-top: 5px;"></textarea>
+    <div class="image-show">
+    </div>
+    <!--<a href="javascript:;" class="a-upload"><input type="file" id="pics" name="pics" multiple="multiple" accept="image/*;capture=camera">上传</input></a>-->
+    <a class="addphoto">
+    	<input type="file" id="pics" class="imgUpload" name="pics" draggable="false" single accept="image/*">
+    </a>
+    <button class="btn btn-primary mobile-post" type="submit" id="publish">
+               烧入记忆
+    </button>
+</form>
+<script src="/javascripts/index.js"></script>
+<% include footer.ejs %>
+
+
+			

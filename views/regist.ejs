@@ -1,0 +1,28 @@
+<% include header.ejs %>
+<div id="regist-back">
+<% if (success) { %>
+  <div class="sucess"><%= success %></div>
+<% } %>
+<% if (error) { %>
+  <div class="error"><%= error %> </div>
+<% } %>
+	<div class="regist-tip" id="regist-input">
+		<form id="regist-form" method="post">
+		<div class="form-group">
+    		<label for="account">账号</label>
+    		<input type="text" class="form-control" id="account" name="account" placeholder="请输入账号">
+  		</div>
+  		<div class="form-group">
+    		<label for="password">密码</label>
+    		<input type="password" class="form-control" id="password" name="password" placeholder="请输入密码">
+  		</div>
+  		<div class="form-group">
+    		<label for="password">重复密码</label>
+    		<input type="password" class="form-control" id="password_re" name="password_re" placeholder="请再输入一次密码">
+  		</div>
+		<button id="sub_regist" type='submit' class="btn btn-info">注册</button>
+		</form>
+	</div>
+</div>
+<script src="/javascripts/main.js"></script>
+<% include footer.ejs %>

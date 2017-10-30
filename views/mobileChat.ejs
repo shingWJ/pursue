@@ -1,0 +1,16 @@
+<% include header.ejs %>
+<div class="friend-chat">
+    <div class="friend-chat-content mobile-content">
+    </div>
+    <div class="chat-send">
+    <input class="chat-content-mobile form-control"></input>
+    <button class="chat-submit btn btn-success">发送</button>
+    </div>
+    <input type="hidden" id="user" value=<%=user.name%>></input>
+</div>
+<script src="/javascripts/jquery-ui-1.10.4.min.js"></script>
+<script src="/javascripts/jquery.mousewheel.js"></script>
+<script src="/javascripts/jquery.mCustomScrollbar.min.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script src="/javascripts/mobileChat.js"></script>
+<% include footer.ejs %>

@@ -1,0 +1,41 @@
+<% include header.ejs %>
+<header class="header-latest jumbotron">
+  <div class="container">
+    <h2><%=title%></h2>
+  </div>
+  <a href="/entry" class="party-entry">报名</a>
+</header>
+<div>
+	<table class="table table-striped">
+  <!--<caption>活动统计</caption>-->
+  <thead>
+    <tr>
+      <th>姓名</th>
+      <th>手机号码</th>
+      <th>参加人数</th>
+      <th>期望聚餐地点</th>
+      <th>菜系偏好</th>
+      <th>合适时间</th>
+    </tr>
+  </thead>
+  <tbody>
+  <%if(partyEntries && typeof(partyEntries)!= "undefined"){%>
+    <%for(var i=0;i<partyEntries.length;i++){%>
+      <tr>
+        <td><%=(partyEntries[i].name?partyEntries[i].name:'')%></td>
+        <td><%=(partyEntries[i].phoneNO ? partyEntries[i].phoneNO:'')%></td>
+        <td><%=(partyEntries[i].entryCount?partyEntries[i].entryCount:'')%></td>
+        <td><%=(partyEntries[i].placeAdvice?partyEntries[i].placeAdvice:'')%></td>
+        <td><%=(partyEntries[i].tasteFavor?partyEntries[i].tasteFavor:'')%></td>
+        <td><%=(partyEntries[i].suitableTime?partyEntries[i].suitableTime:'')%></td>
+      </tr>
+    <%}%>
+    <tr>
+    	<td>总人数</td>
+    	<td><%=allcounts%></td>
+    </tr>
+  <%}%>
+  </tbody>
+  </table>
+</div>
+<% include footer.ejs %>
