@@ -610,7 +610,7 @@ module.exports = function(app, accessLog,errorLog) {
 
 		User.get(newUser.name, function(err, user) {
 			if (err) {
-				res.flash('error', err);
+				req.flash('error', err);
 				writeLog(CONSTANT_LOG_ERROR,'regist post error: ' + err);
 				return res.redirect('/regist');
 			}
