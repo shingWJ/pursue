@@ -163,7 +163,7 @@ module.exports = function(app, accessLog,errorLog) {
 				return;
 			}
 
-			writeLog(CONSTANT_LOG_SUCCESS,'happyContents success: ' + req.session.user.name);
+			writeLog(CONSTANT_LOG_SUCCESS,'happyContents success: ' + req.session.happyUser.name);
 			res.render('happyContent', {
 						title: CONSTANT_TITLE,
 						happyContents: articles,
