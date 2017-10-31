@@ -539,7 +539,7 @@ module.exports = function(app, accessLog,errorLog) {
 
 		User.get(name, function(err, user) {
 			if (err) {
-				req.flash('error', err);
+				req.flash('error', JSON.stringify(err));
 				writeLog(CONSTANT_LOG_ERROR,'login post error: ' + err);
 				return res.redirect('/login');
 			}
