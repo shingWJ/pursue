@@ -26,21 +26,21 @@ Article.prototype.save = function(callback){
 		commentID: this.commentID,
 		comments: this.comments
 	}
-	mongodb.open(function(err,db){
+	mongodb(function(err,db){
 		if (err) {
 			return callback(err);
 		}
 		
 		db.collection('articles',function(err,collection){
 			if (err) {
-				mongodb.close();
+				db.close();
 				return callback(err);
 			}
 
 			collection.insert(article,{
 				safe: true
 			},function(err,articles){
-				mongodb.close();
+				db.close();
 				if (err)
 					return callback(err);
 				callback(null,articles);
@@ -51,19 +51,19 @@ Article.prototype.save = function(callback){
 
 /*获取所有文章*/
 Article.getAll = function(name,callback){
-	mongodb.open(function(err,db){
+	mongodb(function(err,db){
 		if (err) {
 			return callback(err);
 		}
 
 		db.collection('articles',function(err,collection){
 			if (err) {
-				mongodb.close();
+				db.close();
 				return	callback(err);
 			}
 
 			collection.find({author: name}).sort({date:-1}).toArray(function(err,articles){
-				mongodb.close();
+				db.close();
 				if (err) {
 					return callback(err);
 				}
@@ -76,21 +76,21 @@ Article.getAll = function(name,callback){
 
 /*根据ID获取数据*/
 Article.getArticleById = function(id,callback) {
-	mongodb.open(function(err,db){
+	mongodb(function(err,db){
 		if (err) {
 			return callback(err);
 		}
 
 		db.collection('articles',function(err,collection){
 			if (err) {
-				mongodb.close();
+				db.close();
 				return callback(err);
 			}
 
 			console.log('ObjectId("'+id+'")');
 			//var ObjectId = 'ObjectId("'+id+'")';
 			collection.findOne({_id:ObjectID(id)},function(err,articles){
-				mongodb.close();
+				db.close();
 				if (err) {
 					return callback(err);
 				}
@@ -105,19 +105,19 @@ Article.getArticleById = function(id,callback) {
 * 获取topic的数据
 */
 Article.getHappiness = function(topic,callback) {
-	mongodb.open(function(err,db){
+	mongodb(function(err,db){
 		if (err) {
 			return callback(err);
 		}
 
 		db.collection('articles',function(err,collection){
 			if (err) {
-				mongodb.close();
+				db.close();
 				return callback(err);
 			}
 
 			collection.find({topic:topic}).sort({date:-1}).toArray(function(err,articles){
-				mongodb.close();
+				db.close();
 				if (err) {
 					console.log(err);
 					return callback(err);
@@ -129,19 +129,19 @@ Article.getHappiness = function(topic,callback) {
 }
 
 Article.updateIsLike = function(commentID,isLike,callback) {
-	mongodb.open(function(err,db) {
+	mongodb(function(err,db) {
 		if (err) {
 			return callback(err);
 		}
 
 		db.collection('articles',function(err,collection){
 			if (err) {
-				mongodb.close();
+				db.close();
 				return callback(err);
 			} 
 
 			collection.update({commentID:commentID},{$set:{isLike: isLike}},{safe:true},function(err,result){
-				mongodb.close();
+				db.close();
 				if (err) {
 					return callback(err);
 				}
@@ -152,19 +152,19 @@ Article.updateIsLike = function(commentID,isLike,callback) {
 }
 
 Article.addComments = function(commentID,comments,callback) {
-	mongodb.open(function(err,db) {
+	mongodb(function(err,db) {
 		if (err) {
 			return callback(err);
 		}
 
 		db.collection('articles',function(err,collection){
 			if (err) {
-				mongodb.close();
+				db.close();
 				return callback(err);
 			} 
 
 			collection.update({commentID:commentID},{$set:{comments: comments}},{safe:true},function(err,result){
-				mongodb.close();
+				db.close();
 				if (err) {
 					return callback(err);
 				}
@@ -177,19 +177,19 @@ Article.addComments = function(commentID,comments,callback) {
 
 /*根据ID获取数据*/
 Article.getArticleByCommentId = function(id,callback) {
-	mongodb.open(function(err,db){
+	mongodb(function(err,db){
 		if (err) {
 			return callback(err);
 		}
 
 		db.collection('articles',function(err,collection){
 			if (err) {
-				mongodb.close();
+				db.close();
 				return callback(err);
 			}
 
 			collection.findOne({commentID:id},function(err,articles){
-				mongodb.close();
+				db.close();
 				if (err) {
 					return callback(err);
 				}

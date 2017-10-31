@@ -18,20 +18,20 @@ Vote.prototype.save =function(cb){
 		date: this.date
 	}
 
-	mongodb.open(function(err,db){
+	mongodb(function(err,db){
 		if (err) {
 			return cb(err);
 		}
 
 		db.collection('vote',function(er,collection){
 			if (err) {
-				mongodb.close();
+				db.close();
 				return cb(err);
 			}
 			collection.insert(vote,{
 				safe:true
 			},function(err,votes){
-				mongodb.close();
+				db.close();
 				if (err) {
 					return cb(err);
 				}
@@ -43,17 +43,17 @@ Vote.prototype.save =function(cb){
 
 /*获取某个活动的投票信息*/
 PartyEntry.getPartyEntries(function(itemId,cb){
-	mongodb.open(function(err,db){
+	mongodb(function(err,db){
 		if (err) {
 			return cb(er);
 		}
 		db.collection('vote',function(err,collection){
 			if (err) {
-				mongodb.close();
+				db.close();
 				return cb(err);
 			}
 			collection.find({itemID: itemId}).toArray(function(err,votes){
-				mongodb.close();
+				db.close();
 				if (err) {
 					return cb(err);
 				}

@@ -26,20 +26,20 @@ PartyEntry.prototype.save =function(cb){
 		tasteFavor:this.tasteFavor
 	}
 
-	mongodb.open(function(err,db){
+	mongodb(function(err,db){
 		if (err) {
 			return cb(err);
 		}
 
 		db.collection('partyEntry',function(er,collection){
 			if (err) {
-				mongodb.close();
+				db.close();
 				return cb(err);
 			}
 			collection.insert(partyEntry,{
 				safe:true
 			},function(err,partyEntries){
-				mongodb.close();
+				db.close();
 				if (err) {
 					return cb(err);
 				}
@@ -51,17 +51,17 @@ PartyEntry.prototype.save =function(cb){
 
 /*获取某个活动的报名信息*/
 PartyEntry.getPartyEntries = function(partyID,cb){
-	mongodb.open(function(err,db){
+	mongodb(function(err,db){
 		if (err) {
 			return cb(er);
 		}
 		db.collection('partyEntry',function(err,collection){
 			if (err) {
-				mongodb.close();
+				db.close();
 				return cb(err);
 			}
 			collection.find({partyID: partyID}).toArray(function(err,partyEntries){
-				mongodb.close();
+				db.close();
 				if (err) {
 					return cb(err);
 				}

@@ -24,13 +24,13 @@ Poetry.prototype.save = function(callback) {
 		fontFamily:this.fontFamily
 	}
 
-	mongodb.open(function(err,db){
+	mongodb(function(err,db){
 		if (err) {
 			return callback(err);
 		}
 		db.collection('counters',function(err,collection){
 			if (err) {
-				mongodb.close();
+				db.close();
 				return callback(err);
 			}
 			//id自增长
@@ -41,19 +41,19 @@ Poetry.prototype.save = function(callback) {
 				{new: true },
 				function(err,counters){
 					if(err) {
-						mongodb.close();
+						db.close();
 						return callback(err);
 					}
 					poetry.No = counters.value.id;
 					db.collection('poetry',function(err,collection){
 						if (err) {
-							mongodb.close();
+							db.close();
 							return callback(err);
 						}
 						collection.insert(poetry,{
 							safe:true
 						},function(err,poetries){
-							mongodb.close();
+							db.close();
 							if (err) {
 								return callback(err);
 							}
@@ -68,17 +68,17 @@ Poetry.prototype.save = function(callback) {
 }
 
 Poetry.getAll = function(catagory,callback){
-	mongodb.open(function(err,db){
+	mongodb(function(err,db){
 		if (err) {
 			return callback(err);
 		}
 		db.collection('poetry',function(err,collection){
 			if (err) {
-				mongodb.close();
+				db.close();
 				return callback(err);
 			}
 			collection.find({'theme':catagory}).sort({id:1}).toArray(function(err,poetries){
-				mongodb.close();
+				db.close();
 				if (err) {
 					return callback(err);
 				}

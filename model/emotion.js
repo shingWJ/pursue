@@ -27,21 +27,21 @@ Emotion.prototype.save = function(callback){
 		openness: this.openness
 	}
 
-	mongodb.open(function(err,db){
+	mongodb(function(err,db){
 		if (err) {
 			return callback(err);
 		}
 
 		db.collection('emotions',function(err,collection){
 			if (err) {
-				mongodb.close();
+				db.close();
 				return callback(err);
 			}
 
 			collection.insert(emotion,{
 				safe:true
 			},function(err,emotion){
-				mongodb.close();
+				db.close();
 				if (err) {
 					return callback(err);
 				}
@@ -55,19 +55,19 @@ Emotion.prototype.save = function(callback){
 * 取得该用户所有数据
 */
 Emotion.getMyAll = function(name,callback){
-	mongodb.open(function(err,db){
+	mongodb(function(err,db){
 		if (err) {
 			return callback(err);
 		}
 		db.collection('emotions',function(err,collection){
 			if (err) {
-				mongodb.close();
+				db.close();
 				return callback(err);
 			}
 
 			collection.find({name:name}).sort({date:-1}).toArray(function(err,emotions,pages){
 				console.log('111');
-				mongodb.close();
+				db.close();
 				if (err) {
 					console.log(err);
 					return callback(err);
@@ -82,13 +82,13 @@ Emotion.getMyAll = function(name,callback){
 * 删除该用户的某条数据
 */
 Emotion.removeThis = function(content,name,callback){
-	mongodb.open(function(err,db){
+	mongodb(function(err,db){
 		if (err) {
 			return callback(err);
 		}
 		db.collection('emotions',function(err,collection){
 			if (err) {
-				mongodb.close();
+				db.close();
 				return callback(err);
 			}
 			console.log({content:content,
@@ -97,7 +97,7 @@ Emotion.removeThis = function(content,name,callback){
 				content:content,
 				name : name
 			},{safe:true},function(err,result){
-				mongodb.close();
+				db.close();
 				if (err) {
 					return callback(err);
 				}
@@ -113,14 +113,14 @@ Emotion.removeThis = function(content,name,callback){
 */
 Emotion.pagination = function(name,page,callback){
 
-	mongodb.open(function(err,db){
+	mongodb(function(err,db){
 		if (err) {
 			return callback(err);
 		}
 		
 		db.collection('emotions',function(err,collection){
 			if (err) {
-				mongodb.close();
+				db.close();
 				return callback(err);
 			}
 			console.log(page);
@@ -130,7 +130,7 @@ Emotion.pagination = function(name,page,callback){
 			var query = collection.find({name:name}).sort({date:-1});
 			query.skip(skipNum).limit(CONSTANT_PAGE_NUM);
 			query.toArray(function(err,emotions){
-				mongodb.close();
+				db.close();
 				if (err) {
 					return callback(err);
 				}
@@ -143,19 +143,19 @@ Emotion.pagination = function(name,page,callback){
 /*更新单个字段*/
 Emotion.updateField = function(id,upConten,callback){
 
-	mongodb.open(function(err,db){
+	mongodb(function(err,db){
 		if (err) {
 			return callback(err);
 		}
 
 		db.collection('emotions',function(err,collection){
 			if (err) {
-				mongodb.close();
+				db.close();
 				return callback(err);
 			}
 
 			collection.update({_id:ObjectID(id)}, {$set:{openness: upConten}},{safe:true},function(err,result){
-				mongodb.close();
+				db.close();
 				if (err) {
 					return callback(err);
 				}
@@ -168,19 +168,19 @@ Emotion.updateField = function(id,upConten,callback){
 /*获取所有开放*/
 Emotion.getAllOpenned = function(callback){
 
-	mongodb.open(function(err,db){
+	mongodb(function(err,db){
 		if(err) {
 			return	callback(err);
 		}
 
 		db.collection('emotions',function(err,collection){
 			if (err) {
-				mongodb.close();
+				db.close();
 				return callback(err);
 			}
 
 			collection.find({openness:1}).sort({date:-1}).toArray(function(err,result){
-				mongodb.close();
+				db.close();
 				if (err) {
 					return callback(err);
 				}

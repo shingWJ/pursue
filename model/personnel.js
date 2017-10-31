@@ -22,20 +22,20 @@ Personnel.prototype.save =function(callback){
 		date : this.date
 	}
 
-	mongodb.open(function(err,db){
+	mongodb(function(err,db){
 		if (err) {
 			return callback(err);
 		}
 
 		db.collection('personnels',function(err,collection){
 			if (err) {
-				mongodb.close();
+				db.close();
 				return callback(err);
 			}
 			collection.insert(personnel,{
 				safe : true
 			},function(err,result){
-				mongodb.close();
+				db.close();
 				if (err) {
 					return callback(err);
 				}
@@ -47,16 +47,16 @@ Personnel.prototype.save =function(callback){
 
 /*获取某项目的人员*/
 Personnel.getThisCompetition = function(competitionID,callback){
-	mongodb.open(function(err,db){
+	mongodb(function(err,db){
 		if (err) {
 			return callback(err);
 		}
 		db.collection('personnels',function(err,collection){
 			if (err) {
-				mongodb.close();
+				db.close();
 			}
 			collection.find({competitionID:competitionID}).sort({date:1}).toArray(function(err,result){
-				mongodb.close();
+				db.close();
 				if (err) {
 					return	callback(err);
 				}
