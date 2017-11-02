@@ -885,7 +885,7 @@ module.exports = function(app, accessLog,errorLog) {
 		if (!req.session.user) {
 			req.flash('error', '未登录!');
 			writeLog(CONSTANT_LOG_ERROR,'login error: not login');
-			res.redirect('/login');
+			return res.redirect('/login');
 		}
 		next();
 	}
@@ -894,7 +894,7 @@ module.exports = function(app, accessLog,errorLog) {
 		if (req.session.user) {
 			req.flash('error', '已登录!');
 			writeLog(CONSTANT_LOG_ERROR,'login error: already logined');
-			res.redirect('back'); //返回之前的页面
+			return res.redirect('back'); //返回之前的页面
 		}
 		next();
 	}
