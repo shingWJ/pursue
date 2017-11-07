@@ -1,5 +1,6 @@
 var mongodb = require('./db');
 var ObjectID = require('mongodb').ObjectID;
+var CONSTANT_PAGE_NUM = 5;
 
 function Article(article){
 	this.topic = article.topic;
@@ -123,6 +124,34 @@ Article.getHappiness = function(topic,callback) {
 					return callback(err);
 				}
 				return callback(null,articles);
+			})
+		})
+	})
+}
+
+Article.getHappinessByPage = function(topic,page,callback) {
+	mongodb(function(err,db){
+		if (err) {
+			return callback(err);
+		}
+
+		db.collection('articles',function(err,collection){
+			if (err) {
+				db.close();
+				return callback(err);
+			}
+
+			var skipNum = parseInt(page) * CONSTANT_PAGE_NUM;
+			console.log(skipNum);
+			console.log(CONSTANT_PAGE_NUM);
+			var query = collection.find({topic:topic}).sort({date:-1});
+			query.skip(skipNum).limit(CONSTANT_PAGE_NUM);
+			query.toArray(function(err,articles){
+				db.close();
+				if (err) {
+					return callback(err);
+				}
+				callback(null,articles);
 			})
 		})
 	})

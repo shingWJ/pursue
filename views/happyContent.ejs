@@ -14,7 +14,7 @@
   <div class="error"><%= error %> </div>
 <% } %>
 
-<div style="margin-top: 9em;">
+<div style="margin-top: 9em;overflow-y: auto;" id="contentList">
   <%if(happyContents && typeof(happyContents) != 'undefined') {%>
   <%for(var i=0;i<happyContents.length;i++){%>
   <div class="card">

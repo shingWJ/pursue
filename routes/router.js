@@ -155,7 +155,7 @@ module.exports = function(app, accessLog,errorLog) {
 
 	app.get('/behappy',checkHappyLogin);
 	app.get('/happyContent',function(req,res){
-		Article.getHappiness('happiness',function(err,articles){
+		Article.getHappinessByPage('happiness',0,function(err,articles){
 			if (err) {
 				console.log(err);
 				writeLog(CONSTANT_LOG_ERROR,'happyContents error: ' + err);
@@ -171,6 +171,21 @@ module.exports = function(app, accessLog,errorLog) {
 						success: req.flash('success').toString(),
 						error: req.flash('error').toString()
 					});
+		})
+	})
+
+	app.get('/happyContentByPage',function(req,res){
+		var page = parseInt(req.query.page);
+		Article.getHappinessByPage('happiness',page,function(err,articles){
+			if (err) {
+				console.log(err);
+				writeLog(CONSTANT_LOG_ERROR,'happyContents error: ' + err);
+				req.flash('err',err);
+				return;
+			}
+
+			writeLog(CONSTANT_LOG_SUCCESS,'happyContents success: ' + req.session.happyUser.name);
+			res.send(articles);
 		})
 	})
 
@@ -904,7 +919,7 @@ module.exports = function(app, accessLog,errorLog) {
 		if (!req.session.happyUser) {
 			req.flash('error', '未登录!');
 			writeLog(CONSTANT_LOG_ERROR,'login error: not login');
-			res.redirect('/behappy');
+			return res.redirect('/behappy');
 		}
 		next();
 	}
@@ -913,7 +928,7 @@ module.exports = function(app, accessLog,errorLog) {
 		if (req.session.happyUser) {
 			req.flash('error', '已登录!');
 			writeLog(CONSTANT_LOG_ERROR,'login error: already logined');
-			res.redirect('back'); //返回之前的页面
+			return res.redirect('back'); //返回之前的页面
 		}
 		next();
 	}

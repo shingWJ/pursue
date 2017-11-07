@@ -62,3 +62,45 @@ var Ajax = {
         obj.send(data);
     }
 };
+
+$(function(){
+	var page = 0;
+	$.each($('img'),function(index,item){
+		if (item.width > window.innerWidth * 0.8){
+			$(item).css('width',240);
+		}
+	})
+	$('#contentList').css('height', window.innerHeight);
+	$('#contentList').scroll(function(){
+		var divHeight = $(this).height();
+		var scrollheight = $(this)[0].scrollHeight;
+		var scrollTop = $(this)[0].scrollTop;
+
+		if (divHeight + scrollTop >= scrollheight) {
+			$('#contentList').append('<img src="/images/loading.gif" style="margin-left: -2.5em;">');
+			page += 1;
+			var eleStr = '';
+			$.get('/happyContentByPage?page=' + page,function(data,status){
+				$('#contentList').children().last().remove();
+				$.each(data,function(index,item){
+					eleStr = eleStr + '<div class="card"><div class="card-block"><h4 class="card-title"></h4><p class="card-text">' + item.content + '</p><div style="color: #757575;">';
+					if (item.isLike == 0) {
+						eleStr += '<span class="glyphicon glyphicon-heart" id="likeNor" onClick="isLikeClick(this);"></span>';
+					} else {
+						eleStr += '<span class="glyphicon glyphicon-heart heart-like" id="likeNor" onClick="isLikeClick(this);"></span>';
+					}
+					eleStr= eleStr + '<span class="glyphicon glyphicon-comment happy-comment" id="comment" onclick="commentClick(this);"></span><input type="hidden" name="commentId" id="commentId" value='+ item.commentID
+					+'></div></div></div><div class="comment-list" id="commentList">';
+					var commentStr = '';
+					if (item.comments && item.comments.length > 0) {
+						for (var i = 0 ; i < item.comments.length ; i++) {
+							commentStr = commentStr + '<p class="comment-p">' + $('#userName').val() + '&nbsp:&nbsp' + item.comments[i].content + '</p>';
+						}
+					}
+					eleStr = eleStr + commentStr + '</div>';
+				});
+				$('#contentList').append(eleStr);
+			});
+		}
+	});
+});
