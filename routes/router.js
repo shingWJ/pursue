@@ -113,6 +113,11 @@ module.exports = function(app, accessLog,errorLog) {
 		res.render('dream', {});
 	})
 
+	/*toSomeOne*/
+	app.get('/firstLove', function(req, res) {
+		res.render('first', {});
+	})
+
 	app.get('/behappy',checkHappyNotLogin);
 	app.get('/behappy', function(req, res) {
 		res.render('behappylogin', {
