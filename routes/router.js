@@ -115,7 +115,7 @@ module.exports = function(app, accessLog,errorLog) {
 
 	/*toSomeOne*/
 	app.get('/firstLove', function(req, res) {
-		res.render('first', {});
+		res.render('firstLove', {});
 	})
 
 	app.get('/behappy',checkHappyNotLogin);
