@@ -23,11 +23,18 @@
 	#code {
 		height: 650px;
 		color: #ccc;
+		padding-top: 180px;
 	}
 	.mykey {
 		color: yellow;
 		font-size: 20px;
 		margin-left: 40px;
+	}
+
+	.farwell {
+		color: #00BFFF;
+    	font-size: 40px;
+    	letter-spacing: 5px;
 	}
 </style>
   </head>
@@ -35,7 +42,14 @@
     <div id="mainDiv">
 	<div id="content">
 		<div id="code">
-			<span class="comments">/**</span><br />
+			
+			<span class="farwell">茫茫人海，相聚即缘</span><br/>
+			<span class="farwell">缘聚缘散，本就无常</span><br/>
+			<span class="farwell">从始至终，虽有过失</span><br/>
+			<span class="farwell">皆非有意，问心无愧</span><br/>
+			<span class="farwell">自此一别，天涯陌路</span>
+		</div>
+		<!-- <span class="comments">/**</span><br />
 			<span class="space"/><span class="comments">*2019-02-12,</span><br />
 			<span class="space"/><span class="comments">*2019-05-17.</span><br />
 			<span class="space"/><span class="comments">*/</span><br />
@@ -73,8 +87,7 @@
 			<span>我也不懂爱情，但我觉得爱情应该是比友情更深更透的一种情感</span><br />
 			<span>相处融合都会出现矛盾，出现隔阂，如果还有机会去修复，都还有破镜重圆的机会；</span><br />
 			<span>如若是无法调和的矛盾或者原则性的过错，才是给这段感情盖棺定论的时候。</span><br />
-			<span class="mykey">人生无悔，我会一直等你。</span>
-		</div>
+			<span class="mykey">人生无悔，我会一直等你。</span> -->
 		<div id="loveHeart">
 			<canvas id="garden"></canvas>
 			<div id="words">
@@ -106,7 +119,7 @@ if (!document.createElement('canvas').getContext) {
 	msg.id = "errorMsg";
 	msg.innerHTML = "Your browser doesn't support HTML5!<br/>Recommend use Chrome 14+/IE 9+/Firefox 7+/Safari 4+"; 
 	document.body.appendChild(msg);
-	$("#code").css("display", "none")
+	$("#code").css("display", "none");
 	$("#copyright").css("position", "absolute");
 	$("#copyright").css("bottom", "10px");
 	document.execCommand("stop");
