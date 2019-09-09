@@ -18,6 +18,8 @@ var crawler = require('./crawler');
 var PartyEntry = require('../model/partyEntry');
 var beHappy = require('./beHappy');
 
+//var redisLocal = require('./redisLocal');
+
 /*CONSTANT*/
 var CONSTANT_TITLE = "浮萍网";
 var CONSTANT_TEMP_FOLDER = "public/temp/";
@@ -1118,13 +1120,14 @@ module.exports = function(app, accessLog,errorLog) {
 
 	app.get('/h5show',function(req,res){
 		// res.render('h5show',{});
-		Poetry.getAll('laoda',function(err,poetries){
+		//“laoda”
+		Poetry.getAll('me',function(err,poetries){
 			if (err) {
 				req.flash('error', err);
 				console.log(err);
 				writeLog(CONSTANT_LOG_ERROR,'poetryshow get error: ' + err);
 			}
-
+			console.log(JSON.stringify(poetries));
 			res.render('h5show',{
 				poetries:poetries
 			});
@@ -1142,10 +1145,10 @@ module.exports = function(app, accessLog,errorLog) {
 		var x = req.body.x;
 		var y = req.body.y;
 		var fontFamily = req.body.fontFamily;
-		fontFamily = '20px' + fontFamily;
+		fontFamily =fontFamily;
 		var newPoetry = new Poetry({
 			No: 0,
-			theme: 'laoda',
+			theme: 'me',
 			poe:poe,
 			img:img,
 			fontcolor:fontcolor,

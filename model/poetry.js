@@ -28,40 +28,78 @@ Poetry.prototype.save = function(callback) {
 		if (err) {
 			return callback(err);
 		}
-		db.collection('counters',function(err,collection){
+		db.collection('poetry',function(err,collection){
 			if (err) {
 				db.close();
 				return callback(err);
 			}
 			//id自增长
-			collection.findAndModify(
-				{'catagory': poetry.theme},
-				[['id','desc']],
-				{$inc:{'id':1}},
-				{new: true },
-				function(err,counters){
-					if(err) {
-						db.close();
-						return callback(err);
+			// collection.findAndModify(
+			// 	{'catagory': poetry.theme},
+			// 	[['id','desc']],
+			// 	{$inc:{'id':1}},
+			// 	{new: true },
+			// 	function(err,counters){
+			// 		if(err) {
+			// 			db.close();
+			// 			return callback(err);
+			// 		}
+			// 		console.log("");
+			// 		if (counters.value == null) {
+			// 			poetry.No = "0";
+			// 		} else {
+			// 			poetry.No = counters.value.id;
+			// 		}
+			// 		db.collection('poetry',function(err,collection){
+			// 			if (err) {
+			// 				db.close();
+			// 				return callback(err);
+			// 			}
+			// 			collection.insert(poetry,{
+			// 				safe:true
+			// 			},function(err,poetries){
+			// 				db.close();
+			// 				if (err) {
+			// 					return callback(err);
+			// 				}
+			// 				return callback(null,poetries);
+			// 			})
+			// 		})
+			// 	}
+			// 	)
+
+			collection.find({theme:poetry.theme}).toArray(function(err,poetryEnt){
+				console.log('111');
+				if (err) {
+					console.log(err);
+					return callback(err);
+				}
+
+				if (poetryEnt && poetryEnt.length > 0) {
+					poetry.No = poetryEnt.length;
+				} else {
+					poetry.No = 0;
+				}
+				
+				db.collection('poetry',function(err,collection){
+					if (err) {
+					console.log(err);
+					return callback(err);
 					}
-					poetry.No = counters.value.id;
-					db.collection('poetry',function(err,collection){
+					collection.insert(poetry,{
+						safe:true
+					},function(err,poetries){
+						db.close();
 						if (err) {
-							db.close();
+							console.log(err);
 							return callback(err);
 						}
-						collection.insert(poetry,{
-							safe:true
-						},function(err,poetries){
-							db.close();
-							if (err) {
-								return callback(err);
-							}
-							return callback(null,poetries);
-						})
+
+						return callback(null,poetries);
 					})
-				}
-				)
+				})
+			})
+
 		})
 		
 	})
