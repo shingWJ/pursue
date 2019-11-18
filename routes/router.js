@@ -1120,8 +1120,8 @@ module.exports = function(app, accessLog,errorLog) {
 
 	app.get('/h5show',function(req,res){
 		// res.render('h5show',{});
-		//“laoda”
-		Poetry.getAll('me',function(err,poetries){
+		//“laoda” me
+		Poetry.getAll('laoda',function(err,poetries){
 			if (err) {
 				req.flash('error', err);
 				console.log(err);
