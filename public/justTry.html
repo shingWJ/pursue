@@ -128,6 +128,7 @@
 			document.getElementById('failed').style.display = "block";
 			document.getElementById('success').style.display = "none";
 		} else if (index == 0) {
+			window.location.href="about:blank";
 			window.close();
 		}
 		index++;
@@ -136,6 +137,7 @@
 
 	function goON() {
 		if (index == paragraphs.length) {
+			window.location.href="about:blank";
 			window.close();
 		}
 		document.getElementById('frame').style.display = 'none';
