@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>愿你开心每一天，笑起来才最好看哟</title>
+    <link rel='stylesheet' href='stylesheets/style.css' />
+    <link href="stylesheets/default.css" type="text/css" rel="stylesheet">
+	<script type="text/javascript" src="javascripts/jquery-2.2.0.min.js"></script>
+	<script type="text/javascript" src="javascripts/garden.js"></script>
+	<script type="text/javascript" src="javascripts/functions.js"></script>
+    <style type="text/css">
+	@font-face {
+		font-family: digit;
+		src: url('digital-7_mono.ttf') format("truetype");
+	}
+	body {
+		background-color: #333;
+		color: white;
+	}
+	span {
+		margin-top: 5px;
+	}
+	#code {
+		height: 650px;
+		color: #ccc;
+		padding-top: 180px;
+	}
+	.mykey {
+		font-size: 16px;
+		margin-left: 10px;
+	}
+
+	.farwell {
+		color: #00BFFF;
+    	font-size: 40px;
+    	letter-spacing: 5px;
+	}
+
+	#loveHeart {
+		width: 100%;
+    	height: 625px;
+   		margin: auto;
+	}
+	#content1 {
+		width: 100%;
+		float: left;
+    	margin-left: 20px;
+	}
+	#words1 {
+		position: absolute;
+    	top: 195px;
+    	left: 250px;
+	}
+</style>
+  </head>
+  <body>
+    <div id="mainDiv">
+    	<div id="loveHeart">
+			<canvas id="garden"></canvas>
+			<div id="words1">
+				<div id="messages">
+					原来距离我们初识已经过去这么久了
+					<div id="elapseClock"></div>
+				</div>
+				<div id="loveu">
+					愿你开心每一天！<br/>Be Happy Everyday！<br/>
+					<div class="signature">- Mr Wang</div>
+				</div>
+			</div>
+		</div>
+	<div id="content1">
+		<span class="comments">/**</span><br />
+			<span class="space"/><span class="comments">*2019-08-22,</span><br />
+			<span class="space"/><span class="comments">*2020-02-14.</span><br />
+			<span class="space"/><span class="comments">*/</span><br />
+			Boy name = <span class="keyword">Mr</span> wang<br />
+			Girl name = <span class="keyword">Miss</span> zuo<br />
+			<span class="mykey">  珊珊同学，欢迎光临，蓬荜生辉</span><br />
+			其实我第一次知道有个叫珊珊的好姑娘是在2016年<br />
+			那时的我不懂爱，不懂如何去喜欢一个人<br />
+			<span>时光荏苒，在经历了一见钟情而又无疾而终后</span><br />
+			又给了我一段日久生情，结局同样胎死腹中<br />
+			人生路曲曲折折，个中滋味无法言表<br />
+			<span>在经历了一段消沉后，我又听到了一个熟悉的名字，珊珊</span><br />
+			<span>那个知书达理、自信温婉的姑娘的名字又一次出现在我的视野里</span><br/>
+			<span>谢谢你给了我们一次相识的机会</span><br />
+			<span>许是同为水瓶座，我们有些共性，亦同成为某人口中的“奇葩”</span><br/>
+			<span>但每个人成长环境和经历不同，差异定不会少</span><br />
+			<br>
+			<span>珊珊，有些话我想对你说：</span><br/>
+			<span>合肥距离上海，500多公里，高铁三个半小时车程</span><br />
+			<span>距离对任何一种感情都是一种考验</span><br />
+			<span>冷了，不能亲手送上一杯热奶茶</span><br />
+			<span>馋了，不能一起吃顿烤鱼</span><br />
+			<span>感冒了，不能陪你去趟医院</span><br />
+			<span>快递外卖可以送达，但表达不了心意</span><br />
+			<span>文字祝福可以传达，但呈现不了诚意</span><br />
+			虽然我们还没到那一步，但我确实想更了解你一点<br/>
+			无论白猫黑猫，我想成为帮你抓更多老鼠的好猫<br/>
+			<br>
+			<span>叔叔现在的情况，我也大致了解，我不想给你压力</span><br />
+			<span>有时候想找你聊聊天，谈谈近况，挖掘挖掘你的故事</span><br />
+			<span>犹豫再三还是删除了，放下手机，给你更多的空间和自由</span><br />
+			<span>人都是复杂多面的，想要完全了解一个人很难</span><br />
+			<span>但是尽可能多的了解可以促进关系的和谐发展</span><br />
+			<span>我也在等，一直在等</span><br />
+			<span>等这个姑娘放下心墙，敞开心扉</span><br />
+			<br>
+			<span>即使成不了情侣，多一个知心朋友也不错</span><br />
+			<span>在这个国际特别的日子，国内特殊的时期</span><br />
+			<span>谨以此信祝</span><br />
+			<span class="mykey">情人节快乐！</span>
+	</div>
+</div>
+
+<script type="text/javascript">
+var offsetX = $("#loveHeart").width() / 2;
+var offsetY = $("#loveHeart").height() / 2 - 55;
+var together = new Date();
+together.setFullYear(2019, 7, 22);
+together.setHours(9);
+together.setMinutes(16);
+together.setSeconds(0);
+together.setMilliseconds(0);
+
+if (!document.createElement('canvas').getContext) {
+	var msg = document.createElement("div");
+	msg.id = "errorMsg";
+	msg.innerHTML = "Your browser doesn't support HTML5!<br/>Recommend use Chrome 14+/IE 9+/Firefox 7+/Safari 4+"; 
+	document.body.appendChild(msg);
+	$("#content1").css("display", "none");
+	$("#copyright").css("position", "absolute");
+	$("#copyright").css("bottom", "10px");
+	document.execCommand("stop");
+} else {
+	setTimeout(function () {
+		startHeartAnimation();
+	}, 500);
+
+	timeElapse(together);
+	setInterval(function () {
+		timeElapse(together);
+	}, 500);
+
+	adjustCodePosition();
+	$("#content1").typewriter();
+}
+</script>
+  </body>
+</html>
