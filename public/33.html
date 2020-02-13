@@ -57,7 +57,7 @@
 	}
 </style>
   </head>
-  <body>
+  <body style="height: 100%">
     <div id="mainDiv">
     	<div id="loveHeart">
 			<canvas id="garden"></canvas>
@@ -112,8 +112,9 @@
 			<br>
 			<span>即使成不了情侣，多一个知心朋友也不错</span><br />
 			<span>在这个国际特别的日子，国内特殊的时期</span><br />
-			<span>谨以此信祝</span><br />
+			<span>谨以此信遥祝</span><br />
 			<span class="mykey">情人节快乐！</span>
+			<span id='over'></span>
 	</div>
 </div>
 
@@ -148,6 +149,18 @@ if (!document.createElement('canvas').getContext) {
 
 	adjustCodePosition();
 	$("#content1").typewriter();
+
+	var dodyHeight = document.body.scrollHeight;
+
+	var scrollBottom = setInterval(function(){
+		if (dodyHeight != document.body.scrollHeight) {
+			window.scrollTo(0,document.body.scrollHeight);
+		}
+
+		if (document.getElementById('over') && document.getElementById('over').display != 'none') {
+			clearInterval(scrollBottom);
+		}
+	},1000);
 }
 </script>
   </body>
