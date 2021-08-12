@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>愿你开心每一天，笑起来才最好看哟</title>
+    <link rel='stylesheet' href='stylesheets/style.css' />
+    <link href="stylesheets/default.css" type="text/css" rel="stylesheet">
+	<script type="text/javascript" src="javascripts/jquery-2.2.0.min.js"></script>
+	<script type="text/javascript" src="javascripts/garden.js"></script>
+	<script type="text/javascript" src="javascripts/functions.js"></script>
+    <style type="text/css">
+	@font-face {
+		font-family: digit;
+		src: url('digital-7_mono.ttf') format("truetype");
+	}
+	body {
+		background-color: #333;
+		color: white;
+	}
+	span {
+		margin-top: 5px;
+		letter-spacing: 2px;
+	}
+	#code {
+		height: 650px;
+		color: #ccc;
+		padding-top: 180px;
+	}
+	.mykey {
+		font-size: 16px;
+		margin-left: 10px;
+	}
+
+	.farwell {
+		color: #00BFFF;
+    	font-size: 40px;
+    	letter-spacing: 5px;
+	}
+
+	#loveHeart {
+		width: 100%;
+    	height: 625px;
+   		margin: auto;
+	}
+	#content1 {
+		width: 100%;
+		float: left;
+    	margin-left: 20px;
+	}
+	#words1 {
+		position: absolute;
+    	top: 195px;
+    	left: 250px;
+	}
+	#messages {
+		font-size: 20px;
+	}
+</style>
+  </head>
+  <body style="height: 100%">
+    <div id="mainDiv">
+    	<div id="loveHeart">
+			<canvas id="garden"></canvas>
+			<div id="words1">
+				<div id="messages">
+					原来距离我们初识已经过去这么久了
+					<div id="elapseClock"></div>
+				</div>
+				<div id="loveu">
+					愿你开心每一天！<br/>Be Happy Everyday！<br/>
+					<div class="signature">- Mr Wang</div>
+				</div>
+			</div>
+		</div>
+	<div id="content1">
+		<span class="comments">/**</span><br />
+			<span class="space"/><span class="comments">*2021-08-05,</span><br />
+			<span class="space"/><span class="comments">*2020-08-13.</span><br />
+			<span class="space"/><span class="comments">*/</span><br />
+			Boy name = <span class="keyword">Mr</span> wang<br />
+			Girl name = <span class="keyword">Miss</span> Qiao<br />
+			<span class="mykey">潍沪之隔，犹千里也；因缘而识，予之幸，甚幸！</span><br />
+			茫茫人海，点点星辰，无论何种方式的相遇皆可称之缘分；<br />
+			热情似火，赞赏从心，只因佳人三观脾性具是我心之所向。<br />
+			<span>人生已过三十有余，真正有感觉且喜欢的仅仅三人</span><br />
+			一则小学妹，三年守护，虽没能携手伴侣<br />
+			终懂得什么是爱<br />
+			<span>努力让对方开心快乐每一天</span><br />
+			<span>二则前任，三月虽短，三年反思悔恨</span><br/>
+			<span>终领悟怎么爱人</span><br />
+			<span>用心呵护，用行动证明，竭力帮她度过所有困惑</span><br/>
+			<span>还有那一句：如果爱，请深爱；切忌拖拉墨迹</span><br />
+			<br>
+			<span>三则是你，兴是感觉，兴是缘分</span><br/>
+			<span>更是你所展现的三观与脾性</span><br />
+			<span>许是珍惜，许是害怕错过，热情过度</span><br />
+			<span>今后我会把热情埋进心里</span><br />
+			<span>酝成佳酿，愈久愈醇</span><br />
+			<span>在往后的岁月里一点一点斟出</span><br />
+			<span>在这特殊的日子，我暂时收起礼物和鲜花，不给你压力</span><br />
+			<span>谨以一份书信聊表心意，希望你不会孤单，开心快乐每一天</span><br />
+			<span class="mykey">七夕快乐！</span>
+			<span id='over'></span>
+	</div>
+</div>
+
+<script type="text/javascript">
+var offsetX = $("#loveHeart").width() / 2;
+var offsetY = $("#loveHeart").height() / 2 - 55;
+var together = new Date();
+together.setFullYear(2021, 7, 5);
+together.setHours(16);
+together.setMinutes(58);
+together.setSeconds(0);
+together.setMilliseconds(0);
+
+if (!document.createElement('canvas').getContext) {
+	var msg = document.createElement("div");
+	msg.id = "errorMsg";
+	msg.innerHTML = "Your browser doesn't support HTML5!<br/>Recommend use Chrome 14+/IE 9+/Firefox 7+/Safari 4+"; 
+	document.body.appendChild(msg);
+	$("#content1").css("display", "none");
+	$("#copyright").css("position", "absolute");
+	$("#copyright").css("bottom", "10px");
+	document.execCommand("stop");
+} else {
+	setTimeout(function () {
+		startHeartAnimation();
+	}, 500);
+
+	timeElapse(together);
+	setInterval(function () {
+		timeElapse(together);
+	}, 500);
+
+	adjustCodePosition();
+	$("#content1").typewriter();
+
+	var dodyHeight = document.body.scrollHeight;
+
+	var scrollBottom = setInterval(function(){
+		if (dodyHeight != document.body.scrollHeight) {
+			window.scrollTo(0,document.body.scrollHeight);
+		}
+
+		if (document.getElementById('over') && document.getElementById('over').display != 'none') {
+			clearInterval(scrollBottom);
+		}
+	},1000);
+}
+</script>
+  </body>
+</html>
