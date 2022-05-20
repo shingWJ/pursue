@@ -6,7 +6,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
-var MongoStore = require('connect-mongo')(session);
+var MongoStore = require('connect-mongo');
 var ejs = require('ejs');
 var flash = require('connect-flash');
 //var multer = require('multer');
@@ -45,11 +45,8 @@ app.use(function(err,req, res, next) {
   next();
 });
 
-var sessionStore = new MongoStore({
-    db: settings.db,
-    host: settings.host,
-    port: settings.port,
-    url: 'mongodb://' + settings.host + ':' + settings.port + '/' + settings.db
+var sessionStore = MongoStore.create({
+    mongoUrl: 'mongodb://' + settings.host + ':' + settings.port + '/' + settings.db
   });
 app.use(session({
   resave: false, 
